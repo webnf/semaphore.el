@@ -39,21 +39,23 @@
 
 (defvar test/semaphore/active-count 0)
 (defvar test/semaphore/completed-count 0)
+(defvar max-active 7)
 
 (ert-deftest
     test/semaphore/basic-function ()
-  (let* ((s (make-semaphore 7))
+  (let* ((s (make-semaphore max-active))
          (m (make-mutex))
          (complete-c (make-condition-variable m))
          (inc-active (lambda ()
                        (semaphore-acquire s)
                        (with-mutex m
                          (setq test/semaphore/active-count
-                               (+ 1 test/semaphore/active-count)))))
+                               (+ 1 test/semaphore/active-count))
+                         (should (<= test/semaphore/active-count max-active)))))
          (dec-active (lambda ()
                        (with-mutex m
                          (setq test/semaphore/active-count
-                               (- 1 test/semaphore/active-count)))
+                               (- test/semaphore/active-count 1)))
                        (semaphore-release s)))
          (worker (lambda (i)
                    (make-thread
@@ -64,7 +66,7 @@
                             (dotimes (n 100)
                               ;; (message "Worker %d: getting semaphore; round %d" i n)
                               (funcall inc-active)
-                              (message "Worker %d: increasing active count %d" i test/semaphore/active-count)
+                              ;; (message "Worker %d: %d increasing active count %d" i n test/semaphore/active-count)
                               ;; (message "Worker %d: working" i)
                               (unwind-protect
                                   (sleep-for (* 0.001
@@ -86,11 +88,11 @@
                         (error (message "ERROR: %s" err))))))))
     (threaded-test*
      (lambda ()
-       (dotimes (i 10)
+       (dotimes (i 24)
          (funcall worker i))
        (with-mutex m
-         (while (> 1000 test/semaphore/completed-count)
-           (message ".. incomplete: %s" test/semaphore/completed-count)
+         (while (> 2400 test/semaphore/completed-count)
+           ;; (message ".. incomplete: %s" test/semaphore/completed-count)
            (condition-wait complete-c))
-         (message "Complete: %d %d" test/semaphore/completed-count test/semaphore/active-count)
+         ;; (message "Complete: %d %d" test/semaphore/completed-count test/semaphore/active-count)
          (should (= 0 test/semaphore/active-count)))))))
