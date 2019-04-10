@@ -40,7 +40,7 @@
    (-released :initarg :available)
    (-mutex :type mutex)
    (-cvar :type condition-variable))
-  "Semaphore based on two monotonically increasing counters and a condition variables")
+  "Semaphore based on two monotonically increasing counters and a condition variable")
 
 (cl-defmethod initialize-instance :after ((inst semaphore) &rest _)
   (with-slots (-name) inst
