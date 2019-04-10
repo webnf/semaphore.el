@@ -43,7 +43,7 @@
 
 (ert-deftest
     test/semaphore/basic-function ()
-  (let* ((s (make-semaphore max-active))
+  (let* ((s (semaphore-create max-active))
          (m (make-mutex))
          (complete-c (make-condition-variable m))
          (inc-active (lambda ()

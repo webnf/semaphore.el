@@ -12,9 +12,9 @@ It offers integration with [emacs-promise](https://github.com/chuntaro/emacs-pro
 (require 'semaphore)
 ```
 
-### make-semaphore
+### semaphore-create
 ```el
-defun make-semaphore (count &optional name)
+defun semaphore-create (count &optional name)
 ```
 Create a semaphore with count initially available slots (can be negative)
 
@@ -88,7 +88,7 @@ This is useful for controlling parallelism in asynchronous work flows:
 e.g. if you want to fetch 10000 files, but only 7 at a time:
 
 ```el
-(let ((s (make-semaphore 7)))
+(let ((s (semaphore-create 7)))
   (promise-all
     (mapcar
       (lambda (url)

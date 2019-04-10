@@ -5,8 +5,9 @@
 ;; Author: Herwig Hochleitner <herwig@bendlas.net>
 ;; Maintainer: Herwig Hochleitner <herwig@bendlas.net>
 ;; Version: 1.0.0
-;; Keywords: thread, parallelism, concurrency
+;; Keywords: processes, unix
 ;; URL: http://github.com/webnf/semaphore.el
+;; Package-Requires: ((emacs "26"))
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -48,10 +49,15 @@
       (oset inst -mutex mutex)
       (oset inst -cvar (make-condition-variable mutex -name)))))
 
-(defun make-semaphore (count &optional name)
-  "Create a semaphore with count initially available slots (can be negative)
+(defun semaphore-create (count &optional name)
+  "Create a semaphore with COUNT initially available slots
 
-   Use semaphore-acquire, to borrow a slot, and semaphore-release, to return it."
+   COUNT can be negative
+
+   Use ‘semaphore-acquire’, to borrow a slot, and
+   ‘semaphore-release’, to return it.
+
+   Optional argument NAME for your convenience."
   (make-instance 'semaphore
                  :name name
                  :available count))

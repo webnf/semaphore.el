@@ -43,7 +43,7 @@
    This is useful for controlling parallelism in asynchronous work flows:
    e.g. if you want to fetch 10000 files, but only 7 at a time:
 
-   (let ((s (make-semaphore 7)))
+   (let ((s (semaphore-create 7)))
      (promise-all
        (mapcar
          (lambda (url)
