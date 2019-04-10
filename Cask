@@ -5,7 +5,6 @@
 
 (depends-on "eieio")
 (depends-on "cl-lib")
-(depends-on "promise")
 
 (development
  (depends-on "f")
@@ -16,5 +15,3 @@
  ;; promise this is actually a soft dependency
  ;; see https://github.com/cask/cask/issues/334
  (depends-on "promise"))
-
-;; (depends-on "ert-expectations")

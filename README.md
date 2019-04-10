@@ -4,7 +4,7 @@ This semaphore is based on a `condition-variable` and two monotonically increasi
 
 This way, it can support a performance counter and interacts well with threads.
 
-It offers integration with [emacs-promise](https://github.com/chuntaro/emacs-promise) in `semaphore-promise`
+This package offers optional integration with [emacs-promise](https://github.com/chuntaro/emacs-promise) in `semaphore-promise`, that can function as a kind of bounded thread-pool, but for promises.
 
 ## API
 
