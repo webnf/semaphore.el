@@ -5,8 +5,9 @@
 ;; Author: Herwig Hochleitner <herwig@bendlas.net>
 ;; Maintainer: Herwig Hochleitner <herwig@bendlas.net>
 ;; Version: 1.0.0
-;; Keywords: thread, parallelism, concurrency
+;; Keywords: processes, unix
 ;; URL: http://github.com/webnf/semaphore.el
+;; Package-Requires: ((emacs "26") (semaphore "1") (promise "1"))
 
 ;; This file is NOT part of GNU Emacs.
 
