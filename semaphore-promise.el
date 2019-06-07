@@ -50,7 +50,7 @@
          (lambda (url)
            (semaphore-promise-gated s
              (lambda (resolve _)
-               (resolve (http-get url))))) ;; assuming http-get returns another promise
+               (funcall resolve (http-get url))))) ;; assuming http-get returns another promise
          url-list))"
   (if semaphore
       (promise-finally

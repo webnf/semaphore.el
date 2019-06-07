@@ -94,7 +94,7 @@ e.g. if you want to fetch 10000 files, but only 7 at a time:
       (lambda (url)
         (semaphore-promise-gated s
           (lambda (resolve _)
-            (resolve (http-get url))))) ;; assuming http-get returns another promise
+            (funcall resolve (http-get url))))) ;; assuming http-get returns another promise
       url-list))
 ```
 
