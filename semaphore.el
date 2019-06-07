@@ -1,4 +1,4 @@
-;;; semaphore.el --- semaphore: Semaphore based on condition variables -*- lexical-binding: t; -*-
+;;; semaphore.el --- Semaphore based on condition variables -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2019 Herwig Hochleitner
 
