@@ -76,9 +76,9 @@ convincing story about preventing deadlocks.
 (require 'semaphore-promise)
 ```
 
-### semaphore-gated-promise
+### semaphore-promise-gated
 ```el
-defun semaphore-gated-promise (semaphore handler)
+defun semaphore-promise-gated (semaphore handler)
 ```
 Create a promise based on handler, like promise-new, but
 acquire and release the semaphore around resolving the
@@ -92,7 +92,7 @@ e.g. if you want to fetch 10000 files, but only 7 at a time:
   (promise-all
     (mapcar
       (lambda (url)
-        (semaphore-gated-promise s
+        (semaphore-promise-gated s
           (lambda (resolve _)
             (resolve (http-get url))))) ;; assuming http-get returns another promise
       url-list))
