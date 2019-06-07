@@ -36,7 +36,7 @@
 (require 'semaphore)
 (require 'promise)
 
-(defun semaphore-gated-promise (semaphore handler)
+(defun semaphore-promise-gated (semaphore handler)
   "Create a promise based on handler, like promise-new, but
    acquire and release the semaphore around resolving the
    handler (+ result promises).
@@ -48,7 +48,7 @@
      (promise-all
        (mapcar
          (lambda (url)
-           (semaphore-gated-promise s
+           (semaphore-promise-gated s
              (lambda (resolve _)
                (resolve (http-get url))))) ;; assuming http-get returns another promise
          url-list))"
