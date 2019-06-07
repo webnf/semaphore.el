@@ -104,3 +104,30 @@ e.g. if you want to fetch 10000 files, but only 7 at a time:
 cask install
 cask exec ert-runner
 ```
+
+## Guide: Writing multithreaded emacs batch programs
+
+When trying to run multithreaded elisp in batch mode, run emacs as
+foreground daemon, with `--fg-daemon=<name>`. Call `(kill-emacs 0)` at
+the end of the script. This way, emacs will keep running your threads,
+until you terminate it explicitly.
+
+### Example
+
+#### worker.el
+
+```el
+(defun main ()
+  (make-thread
+   (lambda ()
+     (message "Finished, exiting")
+     (kill-emacs 0))))
+```
+
+#### worker
+
+```sh
+#!/bin/sh
+
+exec emacs --fg-daemon=worker --quick -l worker.el -f main "$@"
+```
